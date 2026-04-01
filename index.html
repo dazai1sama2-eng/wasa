@@ -1,0 +1,83 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting...</title>
+    <link rel="icon" href="https://sf-tb-sg.ibytedtos.com/obj/eden-sg/uhtyvueh7nulogpoguhm/tiktok-icon2.png" type="image/x-icon">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        #tiktok-logo {
+            width: 250px;
+            margin-bottom: 20px;
+        }
+        .message {
+            font-size: 24px;
+            color: #333;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .btn {
+            background: #00c1ff;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 18px;
+            margin-top: 30px;
+            cursor: pointer;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <img id="tiktok-logo" src="https://gazypsi.vercel.app/media/pre-load.gif" alt="TikTok Logo">
+    <div class="message">Opening browser...</div>
+    <button id="manualBtn" class="btn hidden">Open in Browser →</button>
+
+    <script>
+        var targetUrl = 'https://www.catogames.online/';  // CHANGE TO YOUR DESTINATION
+
+        function openLinkBasedOnDevice(url) {
+            var userAgent = navigator.userAgent;
+
+            if (/(android)/i.test(userAgent)) {
+                // Try intent (Chrome)
+                var clean = url.replace(/^https?:\/\//, '');
+                window.location.href = 'intent://' + clean + '#Intent;scheme=https;package=com.android.chrome;end;';
+
+                // Fallback after 1 second: if still in same page, show manual button
+                setTimeout(function() {
+                    if (document.visibilityState === 'visible') {
+                        document.querySelector('.message').innerHTML = '⚠️ Auto‑redirect blocked.<br>Tap the button to continue.';
+                        document.getElementById('manualBtn').classList.remove('hidden');
+                    }
+                }, 1000);
+            } else if (/(iphone|ipad|ipod)/i.test(userAgent)) {
+                window.location.href = url;
+            } else {
+                window.location.href = url;
+            }
+        }
+
+        // Attempt auto redirect after 500ms
+        setTimeout(function() {
+            openLinkBasedOnDevice(targetUrl);
+        }, 500);
+
+        // Manual button click
+        document.getElementById('manualBtn').onclick = function() {
+            openLinkBasedOnDevice(targetUrl);
+        };
+    </script>
+</body>
+</html>
